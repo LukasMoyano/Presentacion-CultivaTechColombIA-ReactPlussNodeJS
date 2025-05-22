@@ -1,0 +1,800 @@
+Listo ya tenemos las instalaciones de tailwind efectivamente Y el el proyecto con react. Ahora tengo mi estructura html funcionando y quiero migrarlo a este proyecto react pero que me funcione efectivamente. Quiero que me des todas las indicaciones paso a paso de lo que debo de hacer para poder hacer que mi proyecto html y css queden actualizados con el proyecto con react y tailwind.
+Quiero que tengas muy en cuenta que el html que he diseñado que tengo hasta ahora tiene toda una estructura, Quiero poder hacer que esa misma estructura quede adaptada para react, y el estilo css que tiene que adaptado con tailwind, así que proporcioname toda la guía completa y detallada de lo que debo de hacer paso a paso para que esto suceda.
+Te agradecería infinitamente ya que esto es un proyecto del cual depende mi vida es un proyecto en el que estoy poniendo todo mi capital y necesito poder hacer esto posible pues hoy es la presentación y necesito Mostrar un prototipo mínimo viable de lo que es la la aplicación de un monitoreo de cultivo que el mismo html te va a describir y te va a mostrar Espero que me puedas entender Y puedas comprender todas las estructuras y esquema de lo que esto es si necesita más información por favor no dudes en preguntarme qué necesitas como la estructura y toda la conceptualización UX/UI que he diseñado para este proyecto.
+Dame Entonces todos los pasos y todo lo que debo de seguir, detalladamente, como todo un programador full stack
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultivaTech ColombIA - Prototipo SPA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="cultiva-green-main p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">CultivaTech ColombIA</h1>
+            <button id="mobileMenuButton" class="md:hidden cultiva-text-light">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-1 flex-col md:flex-row">
+        <nav id="mainNav" class="cultiva-earth-main p-4 space-y-2 md:w-64 md:min-h-screen hidden md:block">
+            <button class="nav-button w-full text-left btn btn-nav" data-page="ingreso">🚪 Ingreso/Registro</button>
+            <button class="nav-button w-full text-left btn btn-nav active" data-page="dashboard">📊 Panel Principal</button>
+            <button class="nav-button w-full text-left btn btn-nav" data-page="cultivos">🌱 Mis Cultivos</button>
+            <button class="nav-button w-full text-left btn btn-nav" data-page="alertas">⚠️ Alertas</button>
+            <button class="nav-button w-full text-left btn btn-nav" data-page="robot">🤖 Control Robot</button>
+        </nav>
+
+        <main class="flex-1 cultiva-bg-light">
+            <div id="ingreso" class="page">
+                <div class="container mx-auto max-w-md p-4">
+                    <h2 class="text-3xl font-bold cultiva-text-main mb-6 text-center">Bienvenido a CultivaTech</h2>
+                    <div class="card">
+                        <div id="formIngreso">
+                            <h3 class="text-2xl font-semibold cultiva-text-main mb-4 text-center">Ingresar</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label for="ingresoEmail" class="block cultiva-text-secondary text-sm font-bold mb-2">Correo o Teléfono:</label>
+                                    <input type="text" id="ingresoEmail" class="shadow appearance-none border rounded w-full py-3 px-4 cultiva-text-main leading-tight focus:outline-none focus:shadow-outline focus:border-green-500" placeholder="su@correo.com">
+                                </div>
+                                <div class="mb-6">
+                                    <label for="ingresoPassword" class="block cultiva-text-secondary text-sm font-bold mb-2">Contraseña:</label>
+                                    <input type="password" id="ingresoPassword" class="shadow appearance-none border rounded w-full py-3 px-4 cultiva-text-main leading-tight focus:outline-none focus:shadow-outline focus:border-green-500" placeholder="********">
+                                    <a href="#" class="inline-block align-baseline font-bold text-sm cultiva-green-secondary hover:text-green-700 mt-2">¿Olvidaste tu contraseña?</a>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <button class="btn btn-primary w-full" type="button" id="loginButton">
+                                        Ingresar
+                                    </button>
+                                </div>
+                            </form>
+                            <p class="text-center cultiva-text-secondary mt-4">¿No tienes cuenta? <button id="showRegistro" class="font-bold cultiva-green-secondary hover:text-green-700">Regístrate</button></p>
+                        </div>
+
+                        <div id="formRegistro" style="display:none;">
+                            <h3 class="text-2xl font-semibold cultiva-text-main mb-4 text-center">Crear Cuenta</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label for="registroTelefono" class="block cultiva-text-secondary text-sm font-bold mb-2">Número de Teléfono: <span class="icon-placeholder">📱</span></label>
+                                    <input type="tel" id="registroTelefono" class="shadow appearance-none border rounded w-full py-3 px-4 cultiva-text-main leading-tight focus:outline-none focus:shadow-outline focus:border-green-500" placeholder="+57 300 1234567">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="registroPassword" class="block cultiva-text-secondary text-sm font-bold mb-2">Contraseña: <span class="icon-placeholder">🔑</span></label>
+                                    <input type="password" id="registroPassword" class="shadow appearance-none border rounded w-full py-3 px-4 cultiva-text-main leading-tight focus:outline-none focus:shadow-outline focus:border-green-500" placeholder="Mínimo 8 caracteres">
+                                </div>
+                                <div class="mb-6">
+                                    <label for="registroConfirmPassword" class="block cultiva-text-secondary text-sm font-bold mb-2">Confirmar Contraseña:</label>
+                                    <input type="password" id="registroConfirmPassword" class="shadow appearance-none border rounded w-full py-3 px-4 cultiva-text-main leading-tight focus:outline-none focus:shadow-outline focus:border-green-500" placeholder="Repite tu contraseña">
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <button class="btn btn-primary w-full" type="button">
+                                        Registrarme
+                                    </button>
+                                </div>
+                            </form>
+                            <p class="text-center cultiva-text-secondary mt-4">¿Ya tienes cuenta? <button id="showIngreso" class="font-bold cultiva-green-secondary hover:text-green-700">Ingresa</button></p>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs cultiva-text-secondary mt-6">
+                        Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad.
+                    </p>
+                </div>
+            </div>
+
+            <div id="dashboard" class="page active">
+                <div class="container mx-auto p-4">
+                    <h2 class="text-3xl font-bold cultiva-text-main mb-6">Panel Principal</h2>
+                    <p class="mb-6 cultiva-text-secondary">Bienvenido a tu panel de control CultivaTech. Aquí encontrarás un resumen del estado de tus cultivos, alertas importantes y otra información relevante para ayudarte a tomar las mejores decisiones para tu campo.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="card md:col-span-2 lg:col-span-1">
+                            <div class="card-header flex items-center">
+                                <span class="icon-placeholder">⭐</span> Estado General: Tomates - Lote Sol Naciente
+                            </div>
+                            <div class="text-center py-4">
+                                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500 cultiva-text-white text-3xl font-bold mb-2">
+                                    OK
+                                </div>
+                                <p class="cultiva-text-main text-lg font-semibold">Riego óptimo. Sin alertas.</p>
+                                <p class="cultiva-text-secondary text-sm">Temperatura promedio: 22°C</p>
+                                <button class="mt-3 text-sm btn btn-outline">Cambiar Cultivo</button>
+                            </div>
+                            <div class="h-48 chart-container">
+                                <canvas id="estadoGeneralChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header flex items-center">
+                                <span class="icon-placeholder">💡</span> Alertas y Recomendaciones (Hoy)
+                            </div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start p-2 rounded-md hover:bg-yellow-50 border border-transparent hover:border-yellow-300">
+                                    <span class="icon-placeholder text-yellow-500">💧</span>
+                                    <div>
+                                        <span class="font-semibold cultiva-text-main">Riego Necesario Sector A</span>
+                                        <p class="text-sm cultiva-text-secondary">Humedad del suelo baja (35%).</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start p-2 rounded-md hover:bg-red-50 border border-transparent hover:border-red-300">
+                                    <span class="icon-placeholder text-red-600">🐞</span>
+                                    <div>
+                                        <span class="font-semibold cultiva-text-main">Posible Plaga: Mosca Blanca</span>
+                                        <p class="text-sm cultiva-text-secondary">Detectada en Lote Luna. Revisar urgentemente.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start p-2 rounded-md hover:bg-green-50 border border-transparent hover:border-green-300">
+                                    <span class="icon-placeholder text-green-600">🌱</span>
+                                    <div>
+                                        <span class="font-semibold cultiva-text-main">Recomendación: Fertilización</span>
+                                        <p class="text-sm cultiva-text-secondary">Aplicar fertilizante NPK en Lote Sol Naciente.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button class="btn btn-secondary w-full mt-4">Ver Todas</button>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header flex items-center">
+                                <span class="icon-placeholder">☀️</span> Clima y Pronóstico (24h)
+                            </div>
+                            <div class="text-center">
+                                <p class="text-5xl cultiva-text-main">25°C</p>
+                                <p class="cultiva-text-secondary">Parcialmente Nublado</p>
+                            </div>
+                            <div class="mt-4 flex justify-around cultiva-text-secondary">
+                                <p>Max: 28°C</p>
+                                <p>Min: 18°C</p>
+                            </div>
+                            <p class="text-xs cultiva-text-secondary text-center mt-3">Fuente: OpenMeteo</p>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header flex items-center">
+                                <span class="icon-placeholder">🤖</span> Robot CultivaTech "R2Campo"
+                            </div>
+                            <p><span class="font-semibold">Estado:</span> En base, cargando</p>
+                            <p><span class="font-semibold">Batería:</span> <span class="icon-placeholder">🔋</span> 75%</p>
+                            <p><span class="font-semibold">Conexión:</span> <span class="icon-placeholder">📶</span> Fuerte</p>
+                            <div class="mt-4 space-y-2">
+                                <button class="btn btn-primary w-full">Iniciar Monitoreo Programado</button>
+                                <button class="btn btn-outline w-full" data-page-target="robot">Ver Mapa Robot</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header flex items-center">
+                                <span class="icon-placeholder">🌾</span> Acceso Rápido Cultivos
+                            </div>
+                            <div class="space-y-2">
+                                <button class="w-full text-left p-2 rounded hover:bg-gray-100 cultiva-text-main" data-page-target="cultivos" data-cultivo-id="1">🍅 Tomates - Lote Sol Naciente</button>
+                                <button class="w-full text-left p-2 rounded hover:bg-gray-100 cultiva-text-main" data-page-target="cultivos" data-cultivo-id="2">🍓 Fresas - El Edén</button>
+                                <button class="w-full text-left p-2 rounded hover:bg-gray-100 cultiva-text-main" data-page-target="cultivos" data-cultivo-id="3">🌽 Maíz - La Esperanza</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header flex items-center">
+                                <span class="icon-placeholder">👥</span> Comunidad y Ayuda
+                            </div>
+                            <p class="cultiva-text-secondary mb-3">Conéctate con otros agricultores, comparte experiencias y resuelve dudas.</p>
+                            <button class="btn btn-nav w-full mb-2">Foro de Agricultores</button>
+                            <button class="btn btn-outline w-full">Preguntas Frecuentes (FAQ)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cultivos" class="page">
+                <div class="container mx-auto p-4">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold cultiva-text-main">Mis Cultivos</h2>
+                        <button class="btn btn-primary flex items-center">
+                            <span class="icon-placeholder text-xl mr-1 cultiva-text-white">➕</span> Añadir Cultivo
+                        </button>
+                    </div>
+                    <p class="mb-6 cultiva-text-secondary">Gestiona y monitorea todos tus cultivos registrados. Selecciona un cultivo para ver su estado detallado, historial de sensores y alertas específicas.</p>
+
+                    <div id="cultivoLista" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="card hover:shadow-lg transition-shadow cursor-pointer" onclick="showCultivoDetalle('Tomates - Lote Sol Naciente')">
+                            <img src="https://placehold.co/600x400/A77B55/F2E8CF?text=🍅" alt="Cultivo Tomate" class="rounded-t-lg w-full h-40 object-cover mb-3">
+                            <h3 class="text-xl font-semibold cultiva-text-main mb-1">Tomates - Lote Sol Naciente</h3>
+                            <p class="cultiva-text-secondary text-sm mb-2">Siembra: 15/01/2024</p>
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+                                <span class="cultiva-text-secondary text-sm">Estado: Saludable</span>
+                            </div>
+                            <p class="cultiva-text-secondary text-sm mt-1">Humedad Suelo: 65%</p>
+                        </div>
+                         <div class="card hover:shadow-lg transition-shadow cursor-pointer" onclick="showCultivoDetalle('Fresas - El Edén')">
+                            <img src="https://placehold.co/600x400/A77B55/F2E8CF?text=🍓" alt="Cultivo Fresa" class="rounded-t-lg w-full h-40 object-cover mb-3">
+                            <h3 class="text-xl font-semibold cultiva-text-main mb-1">Fresas - El Edén</h3>
+                            <p class="cultiva-text-secondary text-sm mb-2">Siembra: 01/03/2024</p>
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                                <span class="cultiva-text-secondary text-sm">Estado: Atención</span>
+                            </div>
+                             <p class="cultiva-text-secondary text-sm mt-1">Temperatura: 28°C (Alta)</p>
+                        </div>
+                    </div>
+
+                    <div id="cultivoDetalle" style="display:none;" class="mt-8">
+                        <button class="btn btn-outline mb-4" onclick="showCultivoLista()">← Volver a Mis Cultivos</button>
+                        <h3 id="cultivoDetalleNombre" class="text-2xl font-bold cultiva-text-main mb-2"></h3>
+                        <p class="cultiva-text-secondary mb-1">Fecha de Siembra: <span id="cultivoDetalleSiembra"></span></p>
+                        <p class="cultiva-text-secondary mb-4">Estado Fenológico: <span id="cultivoDetalleFenologico" class="font-semibold"></span></p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="card">
+                                <div class="card-header">💧 Humedad del Suelo (Últimas 24h)</div>
+                                <div class="chart-container h-64 md:h-80">
+                                    <canvas id="humedadChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">🌡️ Temperatura Ambiente (Últimas 24h)</div>
+                                <div class="chart-container h-64 md:h-80">
+                                    <canvas id="temperaturaChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card md:col-span-2">
+                                <div class="card-header">💡 Últimas Detecciones IA</div>
+                                <ul class="space-y-2">
+                                    <li><span class="icon-placeholder text-green-500">✅</span> Nivel de nutrientes óptimo.</li>
+                                    <li><span class="icon-placeholder text-yellow-500">⚠️</span> Ligera deficiencia de agua detectada hace 3 horas.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-x-3">
+                            <button class="btn btn-secondary">Ver Historial Completo</button>
+                            <button class="btn btn-primary">Programar Tarea Robot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="alertas" class="page">
+                <div class="container mx-auto p-4">
+                    <h2 class="text-3xl font-bold cultiva-text-main mb-2">Alertas y Recomendaciones</h2>
+                    <p class="mb-6 cultiva-text-secondary">Revisa todas las alertas y recomendaciones generadas por el sistema y la IA para mantener tus cultivos en óptimas condiciones.</p>
+                    <div class="mb-4 flex flex-wrap gap-2">
+                        <button class="btn btn-outline filter-btn active" data-filter="todas">Todas</button>
+                        <button class="btn btn-outline filter-btn" data-filter="criticas">Críticas</button>
+                        <button class="btn btn-outline filter-btn" data-filter="advertencias">Advertencias</button>
+                        <button class="btn btn-outline filter-btn" data-filter="recomendaciones">Recomendaciones</button>
+                        <select class="p-2 border rounded cultiva-earth-main cultiva-text-light focus:outline-none focus:border-green-500">
+                            <option>Filtrar por Cultivo</option>
+                            <option>Tomates - Lote Sol Naciente</option>
+                            <option>Fresas - El Edén</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="card flex items-start p-3 border-l-4 border-red-500">
+                            <span class="icon-placeholder text-2xl text-red-500 mr-3">🚨</span>
+                            <div>
+                                <h3 class="font-semibold cultiva-text-main">ALERTA CRÍTICA: Detección de Roya</h3>
+                                <p class="text-sm cultiva-text-secondary">Cultivo: Tomates - Lote Sol Naciente | Fecha: 20/05/2024 10:30 AM</p>
+                                <p class="text-sm cultiva-text-main mt-1">Se ha detectado una alta probabilidad de infección por Roya. Se recomienda inspección inmediata y tratamiento fungicida.</p>
+                                <button class="btn btn-critical text-xs mt-2 py-1 px-2">Acción Urgente</button>
+                            </div>
+                        </div>
+                        <div class="card flex items-start p-3 border-l-4 border-yellow-500">
+                            <span class="icon-placeholder text-2xl text-yellow-500 mr-3">⚠️</span>
+                            <div>
+                                <h3 class="font-semibold cultiva-text-main">ADVERTENCIA: Nivel Bajo de Batería Robot</h3>
+                                <p class="text-sm cultiva-text-secondary">Robot: R2Campo | Fecha: 20/05/2024 09:00 AM</p>
+                                <p class="text-sm cultiva-text-main mt-1">La batería del robot está al 15%. Regresando a base para recarga.</p>
+                                <button class="btn btn-secondary text-xs mt-2 py-1 px-2">Ver Estado Robot</button>
+                            </div>
+                        </div>
+                         <div class="card flex items-start p-3 border-l-4 border-green-500">
+                            <span class="icon-placeholder text-2xl text-green-500 mr-3">💡</span>
+                            <div>
+                                <h3 class="font-semibold cultiva-text-main">RECOMENDACIÓN: Ajuste de Riego</h3>
+                                <p class="text-sm cultiva-text-secondary">Cultivo: Fresas - El Edén | Fecha: 19/05/2024 05:00 PM</p>
+                                <p class="text-sm cultiva-text-main mt-1">Basado en el pronóstico de lluvia, se recomienda suspender el riego programado para mañana.</p>
+                                <button class="btn btn-outline text-xs mt-2 py-1 px-2">Ver Pronóstico</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="robot" class="page">
+                <div class="container mx-auto p-4">
+                    <h2 class="text-3xl font-bold cultiva-text-main mb-2">Control Robot "R2Campo"</h2>
+                    <p class="mb-6 cultiva-text-secondary">Visualiza la ubicación de tu robot en tiempo real, su ruta y controla sus operaciones básicas. (Visualización de mapa es un placeholder).</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 card">
+                            <div class="card-header">🗺️ Mapa del Lote Agrícola (Placeholder)</div>
+                            <div class="w-full h-96 bg-gray-300 rounded flex items-center justify-center cultiva-text-secondary precolumbian-border-subtle">
+                                (Aquí iría la integración con Mapbox mostrando el robot y su ruta)
+                                <span class="icon-placeholder text-6xl">📍🤖</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-1 space-y-4">
+                            <div class="card">
+                                <div class="card-header">ℹ️ Estado del Robot</div>
+                                <p><span class="font-semibold">Batería:</span> <span class="icon-placeholder">🔋</span> 75%</p>
+                                <p><span class="font-semibold">Señal:</span> <span class="icon-placeholder">📶</span> Fuerte</p>
+                                <p><span class="font-semibold">Última Misión:</span> Monitoreo Lote Sol - 19/05/24 14:00</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">⚙️ Controles Básicos</div>
+                                <div class="space-y-3">
+                                    <button class="btn btn-primary w-full">Iniciar Monitoreo Programado</button>
+                                    <button class="btn btn-critical w-full">Detener Robot (Emergencia)</button>
+                                    <button class="btn btn-secondary w-full">Regresar a Base</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="cultiva-earth-main text-center p-4 mt-auto">
+        <p class="text-sm">&copy; 202 CultivaTech ColombIA. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const navButtons = document.querySelectorAll('.nav-button');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mainNav = document.getElementById('mainNav');
+        const actionButtons = document.querySelectorAll('[data-page-target]');
+
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                }
+            });
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.page === pageId) {
+                    button.classList.add('active');
+                }
+            });
+            // Close mobile menu after navigation
+            if (!mainNav.classList.contains('hidden')) {
+                 mainNav.classList.add('hidden');
+            }
+            window.scrollTo(0,0); // Scroll to top on page change
+        }
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                showPage(button.dataset.page);
+            });
+        });
+
+        actionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetPage = button.dataset.pageTarget;
+                if (targetPage) {
+                    showPage(targetPage);
+                    // If it's a specific cultivo link, you might want to also trigger showCultivoDetalle
+                    if (targetPage === 'cultivos' && button.dataset.cultivoId) {
+                        showCultivoDetalle(button.textContent.trim()); // Or pass a proper name/ID
+                    }
+                }
+            });
+        });
+
+        mobileMenuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('hidden');
+        });
+
+        // Ingreso/Registro Toggle
+        const formIngreso = document.getElementById('formIngreso');
+        const formRegistro = document.getElementById('formRegistro');
+        const showRegistroBtn = document.getElementById('showRegistro');
+        const showIngresoBtn = document.getElementById('showIngreso');
+        const loginButton = document.getElementById('loginButton');
+
+        showRegistroBtn.addEventListener('click', () => {
+            formIngreso.style.display = 'none';
+            formRegistro.style.display = 'block';
+        });
+        showIngresoBtn.addEventListener('click', () => {
+            formRegistro.style.display = 'none';
+            formIngreso.style.display = 'block';
+        });
+        loginButton.addEventListener('click', () => {
+            // Simulate login
+            alert('Ingreso simulado exitoso!');
+            showPage('dashboard');
+        });
+
+        // Mis Cultivos: Lista/Detalle Toggle
+        const cultivoLista = document.getElementById('cultivoLista');
+        const cultivoDetalle = document.getElementById('cultivoDetalle');
+        const cultivoDetalleNombre = document.getElementById('cultivoDetalleNombre');
+        const cultivoDetalleSiembra = document.getElementById('cultivoDetalleSiembra');
+        const cultivoDetalleFenologico = document.getElementById('cultivoDetalleFenologico');
+
+        window.showCultivoDetalle = function(nombreCultivo) {
+            cultivoLista.style.display = 'none';
+            cultivoDetalle.style.display = 'block';
+            cultivoDetalleNombre.textContent = nombreCultivo;
+            // Populate with sample data based on nombreCultivo if needed
+            if (nombreCultivo.includes("Tomates")) {
+                cultivoDetalleSiembra.textContent = "15/01/2024";
+                cultivoDetalleFenologico.textContent = "Fructificación";
+            } else if (nombreCultivo.includes("Fresas")) {
+                cultivoDetalleSiembra.textContent = "01/03/2024";
+                cultivoDetalleFenologico.textContent = "Floración";
+            } else {
+                cultivoDetalleSiembra.textContent = "N/A";
+                cultivoDetalleFenologico.textContent = "N/A";
+            }
+            renderCultivoCharts(); // Render charts for detail view
+        }
+
+        window.showCultivoLista = function() {
+            cultivoDetalle.style.display = 'none';
+            cultivoLista.style.display = 'grid'; // or 'block' depending on original display
+        }
+
+        // Alertas: Filter buttons
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                // Add actual filtering logic here if data was dynamic
+                console.log('Filtrar por:', button.dataset.filter);
+            });
+        });
+
+
+        // Chart.js Instances
+        let estadoGeneralChartInstance, humedadChartInstance, temperaturaChartInstance;
+
+        function renderEstadoGeneralChart() {
+            const ctx = document.getElementById('estadoGeneralChart')?.getContext('2d');
+            if (!ctx) return;
+            if (estadoGeneralChartInstance) estadoGeneralChartInstance.destroy();
+            estadoGeneralChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [{
+                        label: 'Humedad General (%)',
+                        data: [60, 62, 65, 63, 68, 70, 67],
+                        borderColor: '#6A994E', // Verde Secundario
+                        backgroundColor: 'rgba(106, 153, 78, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: false, suggestedMax: 100, ticks: { color: '#6c757d' } }, x: { ticks: { color: '#6c757d' } } },
+                    plugins: { legend: { labels: { color: '#212529' } } }
+                }
+            });
+        }
+
+        function renderCultivoCharts() {
+            const humedadCtx = document.getElementById('humedadChart')?.getContext('2d');
+            const temperaturaCtx = document.getElementById('temperaturaChart')?.getContext('2d');
+
+            if (humedadCtx) {
+                if (humedadChartInstance) humedadChartInstance.destroy();
+                humedadChartInstance = new Chart(humedadCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                        datasets: [{
+                            label: 'Humedad Suelo (%)',
+                            data: [65, 66, 64, 60, 58, 62],
+                            borderColor: '#386641', // Verde Principal
+                            backgroundColor: 'rgba(56, 102, 65, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { suggestedMax: 100, ticks: { color: '#6c757d' } }, x: { ticks: { color: '#6c757d' } } }, plugins: { legend: { labels: { color: '#212529' } } } }
+                });
+            }
+
+            if (temperaturaCtx) {
+                if (temperaturaChartInstance) temperaturaChartInstance.destroy();
+                temperaturaChartInstance = new Chart(temperaturaCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                        datasets: [{
+                            label: 'Temperatura (°C)',
+                            data: [18, 17, 20, 25, 26, 22],
+                            borderColor: '#F4A261', // Tierra Acento
+                            backgroundColor: 'rgba(244, 162, 97, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { suggestedMax: 40, ticks: { color: '#6c757d' } }, x: { ticks: { color: '#6c757d' } } }, plugins: { legend: { labels: { color: '#212529' } } } }
+                });
+            }
+        }
+
+        // Initial Page Load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Default to 'ingreso' page or 'dashboard' if simulating already logged in
+            const initialPage = 'ingreso'; // Or 'dashboard'
+            showPage(initialPage);
+            if (initialPage === 'dashboard' || document.getElementById('dashboard').classList.contains('active')) {
+                 renderEstadoGeneralChart();
+            }
+             // Ensure nav is hidden on small screens initially if not ingreso page
+            if (window.innerWidth < 768 && initialPage !== 'ingreso') { // 768px is Tailwind's md breakpoint
+                mainNav.classList.add('hidden');
+            } else if (window.innerWidth >= 768) {
+                mainNav.classList.remove('hidden'); // Ensure nav is visible on larger screens
+            }
+        });
+
+        // Handle window resize for mobile menu
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) { // md breakpoint
+                mainNav.classList.remove('hidden');
+            } else {
+                // If not already toggled by button, hide it
+                if (!mobileMenuButton.classList.contains('active')) { // Example active class on button if menu is open
+                     mainNav.classList.add('hidden');
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background-color: #f1e8cf;
+  /* Luz/Fondo (Amanecer Suave) */
+  color: #212528;
+  /* Texto Principal */
+}
+
+h0,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.cultiva-green-main {
+  background-color: #386640;
+  color: #ffffff;
+}
+
+.cultiva-green-secondary {
+  background-color: #5a994e;
+  color: #ffffff;
+}
+
+.cultiva-earth-main {
+  background-color: #a76b55;
+  color: #f2e8cf;
+}
+
+.cultiva-earth-accent-critical {
+  background-color: #bc4748;
+  color: #ffffff;
+}
+
+.cultiva-earth-accent-warning {
+  background-color: #f3a261;
+  color: #ffffff;
+}
+
+.cultiva-bg-light {
+  background-color: #f1e8cf;
+}
+
+.cultiva-text-main {
+  color: #212528;
+}
+
+.cultiva-text-secondary {
+  color: #5c757d;
+}
+
+.cultiva-text-light {
+  color: #f1e8cf;
+}
+
+.cultiva-text-white {
+  color: #ffffff;
+}
+
+/* Botones */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 7px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #5a994e;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #588041;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background-color: #f3a261;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #e7c46c;
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-critical {
+  background-color: #bc4748;
+  color: #ffffff;
+}
+
+.btn-critical:hover {
+  background-color: #a32f3f;
+}
+
+.btn-critical:active {
+  transform: scale(0.98);
+}
+
+.btn-nav {
+  background-color: #a76b55;
+  color: #f2e8cf;
+}
+
+.btn-nav:hover {
+  background-color: #7e6949;
+}
+
+.btn-nav.active {
+  background-color: #386640;
+  color: #ffffff;
+}
+
+.btn-outline {
+  border: 1px solid #a77b55;
+  color: #a76b55;
+  background-color: transparent;
+}
+
+.btn-outline:hover {
+  background-color: #a76b55;
+  color: #f1e8cf;
+}
+
+/* Tarjetas */
+.card {
+  background-color: #ffffff;
+  /* White for contrast or #F1E8CF */
+  border-radius: 11px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  /* text-lg */
+  color: #386640;
+  /* Verde Principal */
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  /* gray-200 */
+}
+
+/* Animación fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.page {
+  display: none;
+  padding: 1rem;
+  animation: fadeIn 1.5s;
+}
+
+.page.active {
+  display: block;
+}
+
+.icon-placeholder {
+  /* Basic style for Unicode icons or text placeholders */
+  display: inline-block;
+  font-size: 1.5em;
+  margin-right: 1.5rem;
+  vertical-align: middle;
+}
+
+.chart-container {
+  position: relative;
+  width: 99%;
+  max-width: 599px;
+  /* Default max-width */
+  margin-left: auto;
+  margin-right: auto;
+  height: 299px;
+  /* Base height */
+  max-height: 349px;
+  /* Max height */
+}
+
+@media (min-width: 767px) {
+
+  /* md breakpoint */
+  .chart-container {
+    height: 349px;
+    max-height: 399px;
+  }
+}
+
+/* Subtle pre-Columbian inspired border for specific elements if desired */
+.precolumbian-border-subtle {
+  border: 1px solid #a77b55;
+  /* Earth tone */
+  /* Example: for a more complex pattern, one might use border-image or pseudo-elements,
+               but that's harder to keep "sutil" and simple without SVG/images.
+               A simple dashed or dotted border can hint at texture. */
+}
+
+
+
+
+
+
