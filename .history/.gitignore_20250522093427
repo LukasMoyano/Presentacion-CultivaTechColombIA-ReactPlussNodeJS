@@ -1,0 +1,14 @@
+# Node (Frontend y Backend)
+node_modules/
+dist/
+build/
+
+# IDEs y sistema operativo
+.vscode/
+*.env
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
