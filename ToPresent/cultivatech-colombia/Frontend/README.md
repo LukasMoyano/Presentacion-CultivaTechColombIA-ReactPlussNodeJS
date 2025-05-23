@@ -1,3 +1,26 @@
+aquí debe de ir es la aplicación en su segunda versión 
+debe de tener ya las visualizaciones y conexiones con los servicios de Floyd
+react jsx, flask.py para backend
+
+backend 
+  creacion de usuario
+     conexión a su dispositivo único
+     integración modelos AI 
+        avisos y, monitoreos, alertas tempranas
+     Game zone
+        basura cayéndose 
+           a partir de la interacción con el juego, el modelo se alimenta
+               mayor inmercion dentro de lanoaktaforma
+frontend
+    place market
+    
+  
+  
+  
+  
+  
+  
+  
   **Actúa como un** **Redactor Técnico Creativo y Estratega de Comunicación para Proyectos Open Source de Impacto**. Tu especialidad es crear documentación **README.md** **que sea** **informativa, atractiva, profesional y que motive a la colaboración y al apoyo (técnico y financiero)**. Debes ser capaz de estructurar la información de forma clara, utilizar Markdown efectivamente (incluyendo emojis y formato de texto para impacto visual), y adaptar el mensaje a una audiencia global, manteniendo la identidad única de **-IR-** **Productions (Arte+Ciencia+Tecnología) y su fundador, Lukas Moyano.**
 
     **Contexto Principal:**
